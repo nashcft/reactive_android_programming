@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
                 StockUpdate("GOOGLE", BigDecimal(12.43), Date()),
                 StockUpdate("APPL", BigDecimal(645.1), Date()),
                 StockUpdate("TWTR", BigDecimal(1.43), Date())
-        ).subscribe { stockDataAdapter.add(it) }
+        )
+                .doOnNext { Log.d("APP", "New update ${it.stockSymbol}") }
+                .subscribe { stockDataAdapter.add(it) }
     }
 }
