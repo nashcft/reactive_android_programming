@@ -8,6 +8,8 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import io.reactivex.Observable
+import java.math.BigDecimal
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +39,10 @@ class MainActivity : AppCompatActivity() {
         stockDataAdapter = StockDataAdapter()
         recyclerView.adapter = stockDataAdapter
 
-        Observable.just("APPL", "GOOGLE", "TWTR")
-                .subscribe { stockDataAdapter.add(it) }
+        Observable.just(
+                StockUpdate("GOOGLE", BigDecimal(12.43), Date()),
+                StockUpdate("APPL", BigDecimal(645.1), Date()),
+                StockUpdate("TWTR", BigDecimal(1.43), Date())
+        ).subscribe { stockDataAdapter.add(it) }
     }
 }
